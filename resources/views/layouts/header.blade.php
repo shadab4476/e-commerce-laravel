@@ -11,7 +11,7 @@
                             href="{{ !session()->has('verify_otp_true') ? route('index') : route('home') }}">Home</a>
                     </li>
                     <li><a class="{{ url()->current() == asset('/about') ? 'text-yellow-500 border-b-yellow-500' : '' }} hover:border-b-yellow-500   hover:text-gray-300 border-b-2  block transition-all py-2  border-transparent uppercase text-lg font-medium text-white"
-                            href="{{route('about.page')}}">About</a>
+                            href="{{ route('about.page') }}">About</a>
                     </li>
                     <li><a class="{{ url()->current() == asset('/contect') ? 'text-yellow-500 border-b-yellow-500' : '' }} hover:border-b-yellow-500  hover:text-gray-300 border-b-2  block transition-all py-2  border-transparent uppercase text-lg font-medium text-white"
                             href="{{ route('contect.page') }}">Contect</a>
@@ -142,6 +142,19 @@
             @if (auth()->check())
                 <div class="icon_parent w-[10%]">
                     <ul class="flex justify-center gap-x-5 items-center">
+                        <li class="hover_menu_parent activeUserOnHover z-50">
+                            <button
+                                class=" border-b-2 inline-block uppercase py-2 border-transparent text-lg font-medium text-white">
+                                <b class="capitalize hover:text-yellow-500 ">Active Users</b>
+                                <div class="absolute px-2  bg-yellow-500 activeUserOnHoverChild  hover_submenu ">
+                                    <ul class="flex flex-wrap gap-y-3">
+                                        <li><a class="block text-lg items-center"
+                                                href="{{ route('users.index') }}">......</a></li>
+                                    </ul>
+                                </div>
+
+                            </button>
+                        </li>
                         <li class="hover_menu_parent z-50">
                             <button
                                 class="{{ url()->current() == route('get.accountDetail') ? 'text-yellow-500' : '' }}  border-b-2 inline-block uppercase py-2 border-transparent text-lg font-medium text-white">

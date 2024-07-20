@@ -118,7 +118,24 @@
                 });
             });
         };
-
+// status check 
+        function activeUsers() {
+            if ("{{ auth()->check() }}") {
+                $(".activeUserOnHover").on("mouseenter", function() {
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $("meta[name=csrf-token]").attr("content")
+                        },
+                        url: "{{ route('active.users') }}",
+                        type: "post",
+                        success: function(res) {
+                            $(".activeUserOnHover .activeUserOnHoverChild li a").text(res.users);
+                        }
+                    });
+                })
+            }
+        }
+        activeUsers();
         displayButton();
         scrollToTop();
     </script>

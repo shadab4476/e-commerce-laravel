@@ -33,6 +33,13 @@ class AdminUserController extends Controller
                 $HtmlAddAction .= '<li><a class="px-2 py-1 inline-block" href="' . $edit . '">Edit</a></li>';
                 $HtmlAddAction .= '<li><a class="px-2 py-1 inline-block delete_user" href="javascript:void(0)" data-user="' . $delete . '">Delete</a></li>';
                 return Html::fromHtml($HtmlAddAction);
+            })->addColumn("isActive", function ($row) {
+                if ($row->isActive == 1) {
+                    $status = "<button type='button'  class='inline-block statusChange'><h2 class='text-green-500 font-bold'>Online</h2></button>";
+                    return Html::fromHtml($status);
+                }
+                $status = "<button type='button'  class='inline-block statusChange'><h2 class=''>Online</h2></button>";
+                return Html::fromHtml($status);
             })->addColumn("name", function ($row) {
                 $name_product = $row->name;
                 $name = "<button type='button'  class='inline-block'><h2 class='text-yellow-500 font-bold'>$name_product </h2></button>";

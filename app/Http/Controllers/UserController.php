@@ -47,7 +47,16 @@ class UserController extends Controller
         //
     }
 
-
+    public function activeUsers()
+    {
+        $users = User::where("isActive", 1)->get('id');
+        return response()->json(["users" => count($users)]);
+    }
+    public function activeUsersStatus()
+    {
+        $users = User::where("isActive", 1)->get('id');
+        return response()->json(["users" => count($users)]);
+    }
 
     /**
      * Show the form for editing the specified resource.

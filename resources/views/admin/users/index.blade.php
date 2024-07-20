@@ -27,6 +27,7 @@
                     <thead>
                         <tr>
                             <th class="font-bold">ID</th>
+                            <th class="font-bold">Status</th>
                             <th class="font-bold">Image</th>
                             <th class="font-bold">Name</th>
                             <th class="font-bold">Email</th>
@@ -45,6 +46,7 @@
 
     <script>
         jQuery(document).ready(function($) {
+
             var usersTable = $("#users_table").dataTable({
                 processing: true,
                 serverside: true,
@@ -54,12 +56,15 @@
                 columns: [{
                         data: "id",
                         name: "id",
+                    }, {
+                        data: "isActive",
+                        name: "isActive",
                     },
                     {
                         data: "image",
                         name: "image",
-                        orderable:false,
-                        searchable:false,
+                        orderable: false,
+                        searchable: false,
                     }, {
                         data: "name",
                         name: "name",
@@ -77,6 +82,7 @@
                     },
                 ],
             });
+
             $(document).on("click", ".delete_user", function(e) {
                 e.preventDefault();
                 var route_user_delete = $(this).attr("data-user");
@@ -102,6 +108,26 @@
 
                 }
             });
+            // status check  same code     // app.blade.php se copy kiya
+            // setInterval(() => {
+            //     function activeUsers() {
+            //         if ("{{ auth()->check() }}") {
+            //             $.ajax({
+            //                 headers: {
+            //                     'X-CSRF-TOKEN': $("meta[name=csrf-token]").attr(
+            //                         "content")
+            //                 },
+            //                 url: "{{ route('active.usersStatus') }}",
+            //                 type: "post",
+            //                 success: function(res) {
+            //                     console.log(usersTable);
+            //                 }
+            //             });
+            //         }
+            //     }
+            //     activeUsers();
+
+            // }, 2000);
         });
     </script>
 @endsection

@@ -44,6 +44,9 @@ class AuthController extends Controller
         }
 
         if (auth()->attempt($credential)) {
+            $user =  User::find(auth()->user()->id);
+            $user->isActive = 1;
+            $user->update();
             return redirect('/');
         }
         return redirect()->back()->with(["error" => "Please enter valid credentials."]);
@@ -85,6 +88,8 @@ class AuthController extends Controller
             if ($email_check->has(session("user_email"))) {
                 $loginUser = User::whereEmail($email_check)->first();
                 Auth::guard()->login($loginUser);
+                $loginUser->isActive = 1;
+                $loginUser->update();
                 if ($loginUser) {
                     return redirect('/');
                 }
@@ -113,6 +118,7 @@ class AuthController extends Controller
         }
         try {
             $user = User::create([
+                "isActive" => 1,
                 "name" => $request->input('name'),
                 "password" => bcrypt($request->input('password')),
                 "email" => session()->get('user_email'),
@@ -180,6 +186,9 @@ class AuthController extends Controller
     public function logout()
     {
         session()->flush();
+        $user =  User::find(auth()->user()->id);
+        $user->isActive = 0;
+        $user->update();
         auth()->logout();
         return redirect()->route('index');
     }

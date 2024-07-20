@@ -45,6 +45,11 @@ Route::group(["middleware" => ["otp_verify"]], function () {
     });
 
     Route::group(["middleware" => ["auth"]], function () {
+        // Active Users ajex
+        Route::post('/activeUsers', [UserController::class, "activeUsers"])->name('active.users');
+        Route::post('/activeUsersStatus', [UserController::class, "activeUsersStatus"])->name('active.usersStatus');
+
+
         // home
         Route::get('/home', [AuthController::class, "home"])->name('home');
 
